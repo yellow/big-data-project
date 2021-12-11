@@ -2,8 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
-from sklearn.linear_model import LinearRegression,LogisticRegression
-from scipy.spatial.distance import cosine
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.cluster import KMeans
 

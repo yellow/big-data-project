@@ -53,17 +53,13 @@ def logistic_regression(df):
                         columns=["LOC", "AGELVL", "EDLVL", "LOS", "is_STEM"])
     df_y = pd.DataFrame(df.is_50k)
     reg = LogisticRegression()
-    # Split the data into 67% training and 33% testing data
-    # NOTE: We have to split the dependent variables (x) and the target or independent variable (y)
+
     x_train, x_test, y_train, y_test = train_test_split(df_x, df_y, test_size=0.33, random_state=42)
     # Train our model with the training data
     reg.fit(x_train, np.ravel(y_train))
     # Initialize the linear regression model
     reg = LogisticRegression()
-    # Split the data into 67% training and 33% testing data
-    # NOTE: We have to split the dependent variables (x) and the target or independent variable (y)
-    x_train, x_test, y_train, y_test = train_test_split(df_x, df_y, test_size=0.33, random_state=42)
-    # Train our model with the training data
+
     reg.fit(x_train, np.ravel(y_train))
     y_pred = reg.predict(x_test)
     cnf_matrix = confusion_matrix(y_test, y_pred)
