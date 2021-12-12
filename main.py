@@ -5,7 +5,7 @@ from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output, State
 import pandas as pd
-from MachineLearning import load_data, transform_data, logistic_regression, plot_importantfeatures
+from MachineLearning import load_data, transform_data,  plot_importantfeatures
 
 from Clustering import get_occupdata, scale_data, kmeans
 
@@ -222,7 +222,7 @@ content_fourth_row = dbc.Row(
         dbc.Col(
             dcc.Graph(id='graph_5'), md=6
         ),
-dbc.Col(
+        dbc.Col(
             dcc.Graph(id='graph_6'), md=6
         ),
 
@@ -307,7 +307,7 @@ def update_graph_4(n_clicks, dropdown_value, range_slider_value, check_list_valu
      ])
 def update_graph_5(n_clicks, dropdown_value, range_slider_value, check_list_value, radio_items_value):
     df_loc = df[df["LOC"] == "MICHIGAN"]
-    fig = px.histogram(df_loc,x="GEN",barmode="group")
+    fig = px.histogram(df_loc, x="GEN", barmode="group")
     return fig
 
 
@@ -343,7 +343,7 @@ def update_graph_7(n_clicks, dropdown_value, range_slider_value, check_list_valu
         df_industry = df_edu[df_edu["STEMOCC"] == radio_items_value]
     else:
         df_industry = df_edu
-    fig = px.scatter(df_industry, x="SALARY",y="LOS")
+    fig = px.scatter(df_industry, x="SALARY", y="LOS")
     return fig
 
 
@@ -433,24 +433,18 @@ def update_card_text_4(n_clicks, dropdown_value, range_slider_value, check_list_
 
 if __name__ == '__main__':
     print("Choose an  option: - ")
-    print("1. LaunchDashBoard")
-    print("2. Perform ML Classification")
-    print("3. Output Clustering Information for a specific occupation")
+    print("1. Launch Dashboard")
+    print("2. Get ML Classification Report along with important features that affect salary prediction")
+    print("3. Get clustering information for Computer Science jobs in the public sector")
     val = int(input("Enter your value: "))
     if val == 1:
         app.run_server(port=8085)
     elif val == 2:
-        response = int(input("Enter 1 to get important features and 2 to get prediction for a an employee"))
-        if response == 1:
-            df = load_data()
-            df = transform_data(df)
-            plot_importantfeatures(df)
-        else:
-            df = load_data()
-            df = transform_data(df)
-            print(logistic_regression(df))
+        df = load_data()
+        df = transform_data(df)
+        plot_importantfeatures(df)
     elif val == 3:
-        occ = input("Enter an Occupation")
+        occ = "COMPUTER SCIENCE"
         df = get_occupdata(occ)
         X = scale_data(df)
-        kmeans(X, 4, df)
+        kmeans(X, 3, df)
